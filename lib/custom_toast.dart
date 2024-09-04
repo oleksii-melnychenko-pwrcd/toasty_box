@@ -59,8 +59,6 @@ class _CustomToastState extends State<CustomToast> {
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: widget.backgroundColor ?? Colors.white,
