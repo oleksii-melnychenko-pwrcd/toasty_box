@@ -17,8 +17,7 @@ class ToastService {
   static int? _showToastNumber;
 
   static void showToastNumber(int val) {
-    assert(val > 0,
-        "Show toast number can't be negative or zero. Default show toast number is 5.");
+    assert(val > 0, "Show toast number can't be negative or zero. Default show toast number is 5.");
     if (val > 0) {
       _showToastNumber = val;
     }
@@ -53,8 +52,7 @@ class ToastService {
     _overlayIndexList.add(index);
   }
 
-  static bool _isToastInFront(int index) =>
-      index > _overlayPositions.length - 5;
+  static bool _isToastInFront(int index) => index > _overlayPositions.length - 5;
 
   static void _updateOverlayPositions({bool isReverse = false, int pos = 0}) {
     if (isReverse) {
@@ -87,9 +85,7 @@ class ToastService {
   static double _calculateOpacity(int index) {
     int noOfShowToast = _showToastNumber ?? 5;
     if (_overlayIndexList.length <= noOfShowToast) return 1;
-    final isFirstFiveToast = _overlayIndexList
-        .sublist(_overlayIndexList.length - noOfShowToast)
-        .contains(index);
+    final isFirstFiveToast = _overlayIndexList.sublist(_overlayIndexList.length - noOfShowToast).contains(index);
     return isFirstFiveToast ? 1 : 0;
   }
 
@@ -128,12 +124,13 @@ class ToastService {
     Color? backgroundColor,
     Color? shadowColor,
     Curve? slideCurve,
+    EdgeInsets? padding,
+    BoxDecoration? decoration,
     Curve positionCurve = Curves.elasticOut,
     ToastLength length = ToastLength.short,
     DismissDirection dismissDirection = DismissDirection.down,
   }) async {
-    assert(expandedHeight >= 0.0,
-        "Expanded height should not be a negative number!");
+    assert(expandedHeight >= 0.0, "Expanded height should not be a negative number!");
     if (context.mounted) {
       _overlayState = Overlay.of(context);
       final controller = AnimationController(
@@ -146,8 +143,8 @@ class ToastService {
       _addOverlayPosition(controllerIndex);
       final overlayEntry = OverlayEntry(
         builder: (context) => AnimatedPositioned(
-          bottom: _calculatePosition(controllerIndex) +
-              (_expandedIndex.value == controllerIndex ? expandedHeight : 0.0),
+          bottom:
+              _calculatePosition(controllerIndex) + (_expandedIndex.value == controllerIndex ? expandedHeight : 0.0),
           left: 10,
           right: 10,
           duration: const Duration(milliseconds: 500),
@@ -164,9 +161,8 @@ class ToastService {
             },
             child: AnimatedPadding(
               padding: EdgeInsets.symmetric(
-                horizontal: (_expandedIndex.value == controllerIndex
-                    ? 10
-                    : max(_calculatePosition(controllerIndex) - 35, 0.0)),
+                horizontal:
+                    (_expandedIndex.value == controllerIndex ? 10 : max(_calculatePosition(controllerIndex) - 35, 0.0)),
               ),
               duration: const Duration(milliseconds: 500),
               curve: positionCurve,
@@ -178,15 +174,15 @@ class ToastService {
                   messageStyle: messageStyle,
                   backgroundColor: backgroundColor,
                   shadowColor: shadowColor,
+                  padding: padding,
+                  decoration: decoration,
                   curve: slideCurve,
                   isClosable: isClosable,
-                  isInFront: _isToastInFront(
-                      _animationControllers.indexOf(controller)),
+                  isInFront: _isToastInFront(_animationControllers.indexOf(controller)),
                   controller: controller,
                   onTap: () => _toggleExpand(controllerIndex),
                   onClose: () {
-                    _removeOverlayEntry(
-                        _animationControllers.indexOf(controller));
+                    _removeOverlayEntry(_animationControllers.indexOf(controller));
                     _updateOverlayPositions(
                       isReverse: true,
                       pos: _animationControllers.indexOf(controller),
@@ -245,6 +241,8 @@ class ToastService {
     Color? backgroundColor,
     Color? shadowColor,
     Curve? slideCurve,
+    EdgeInsets? padding,
+    BoxDecoration? decoration,
     Curve positionCurve = Curves.elasticOut,
     ToastLength length = ToastLength.short,
     DismissDirection dismissDirection = DismissDirection.down,
@@ -256,6 +254,8 @@ class ToastService {
       backgroundColor: backgroundColor,
       shadowColor: shadowColor,
       positionCurve: positionCurve,
+      padding: padding,
+      decoration: decoration,
       length: length,
       dismissDirection: dismissDirection,
       child: child,

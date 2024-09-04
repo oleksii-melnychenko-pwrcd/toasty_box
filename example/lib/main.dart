@@ -62,6 +62,11 @@ class _MyAppState extends State<MyApp> {
                 ToastService.showWidgetToast(
                   context,
                   length: ToastLength.ages,
+                  padding: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   expandedHeight: 150,
                   child: ListTile(
                     leading: const SizedBox(

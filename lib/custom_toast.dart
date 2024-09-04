@@ -6,17 +6,22 @@ class CustomToast extends StatefulWidget {
   final Widget? child;
   final Widget? leading;
   final Color? backgroundColor;
+  final EdgeInsets? padding;
   final Color? shadowColor;
+  final BoxDecoration? decoration;
   final AnimationController? controller;
   final bool isInFront;
   final VoidCallback onTap;
   final VoidCallback? onClose;
   final Curve? curve;
   final bool? isClosable;
+
   const CustomToast({
     super.key,
     this.isInFront = false,
     required this.onTap,
+    this.padding,
+    this.decoration,
     this.onClose,
     this.message,
     this.messageStyle,
@@ -54,12 +59,12 @@ class _CustomToastState extends State<CustomToast> {
               ),
               child: Stack(
                 children: [
-                  InkWell(
+                  GestureDetector(
                     onTap: widget.onTap,
-                    borderRadius: BorderRadius.circular(15),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
-                      decoration: BoxDecoration(
+                      padding: widget.padding ?? const EdgeInsets.all(16),
+                      decoration: widget.decoration ?? BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: widget.backgroundColor ?? Colors.white,
                         boxShadow: [
