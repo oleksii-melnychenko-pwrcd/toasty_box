@@ -126,6 +126,8 @@ class ToastService {
     Curve? slideCurve,
     EdgeInsets? padding,
     BoxDecoration? decoration,
+    Duration forwardDuration = const Duration(milliseconds: 1000),
+    Duration reverseDuration = const Duration(milliseconds: 1000),
     Curve positionCurve = Curves.elasticOut,
     ToastLength length = ToastLength.short,
     DismissDirection dismissDirection = DismissDirection.down,
@@ -135,8 +137,8 @@ class ToastService {
       _overlayState = Overlay.of(context);
       final controller = AnimationController(
         vsync: _overlayState!,
-        duration: const Duration(milliseconds: 1000),
-        reverseDuration: const Duration(milliseconds: 1000),
+        duration: forwardDuration,
+        reverseDuration: reverseDuration,
       );
       _animationControllers.add(controller);
       int controllerIndex = _animationControllers.indexOf(controller);
@@ -243,6 +245,8 @@ class ToastService {
     Curve? slideCurve,
     EdgeInsets? padding,
     BoxDecoration? decoration,
+    Duration forwardDuration = const Duration(milliseconds: 1000),
+    Duration reverseDuration = const Duration(milliseconds: 1000),
     Curve positionCurve = Curves.elasticOut,
     ToastLength length = ToastLength.short,
     DismissDirection dismissDirection = DismissDirection.down,
@@ -256,6 +260,9 @@ class ToastService {
       positionCurve: positionCurve,
       padding: padding,
       decoration: decoration,
+      slideCurve: slideCurve,
+      forwardDuration: forwardDuration,
+      reverseDuration: reverseDuration,
       length: length,
       dismissDirection: dismissDirection,
       child: child,
